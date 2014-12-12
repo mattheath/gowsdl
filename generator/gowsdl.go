@@ -244,6 +244,7 @@ func (g *GoWsdl) genTypes() ([]byte, error) {
 					if strings.TrimSpace(e.Name) == "" || strings.TrimSpace(e.Type) == "" {
 						continue
 					}
+					se = append(se, e)
 				}
 				c.Sequence.Elements = se
 			}
