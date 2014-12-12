@@ -15,7 +15,7 @@ import (
 	"encoding/xml"
 	"time"
 
-	gowsdl "github.com/hooklift/gowsdl/generator"
+	gowsdl "github.com/mattheath/gowsdl/generator"
 	{{/*range .Imports*/}}
 		{{/*.*/}}
 	{{/*end*/}}
