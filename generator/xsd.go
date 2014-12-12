@@ -49,6 +49,7 @@ type XsdComplexType struct {
 	Abstract       bool              `xml:"abstract,attr"`
 	Name           string            `xml:"name,attr"`
 	Mixed          bool              `xml:"mixed,attr"`
+	Annotation     XsdAnnotation     `xml:"annotation"`
 	Sequence       XsdSequence       `xml:"sequence"`
 	Choice         []XsdElement      `xml:"choice>element"`
 	All            []XsdElement      `xml:"all>element"`
@@ -110,4 +111,8 @@ type XsdRestriction struct {
 
 type XsdRestrictionValue struct {
 	Value string `xml:"value,attr"`
+}
+
+type XsdAnnotation struct {
+	Documentation string `xml:"documentation"`
 }
