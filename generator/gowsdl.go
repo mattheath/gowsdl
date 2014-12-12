@@ -224,6 +224,7 @@ func (g *GoWsdl) genTypes() ([]byte, error) {
 		"stripns":              stripns,
 		"replaceReservedWords": replaceReservedWords,
 		"makePublic":           makePublic,
+		"makeValidName":        makeValidName,
 		"targetNamespace":      func() string { return g.wsdl.TargetNamespace },
 	}
 
@@ -274,6 +275,7 @@ func (g *GoWsdl) genOperations() ([]byte, error) {
 		"stripns":              stripns,
 		"replaceReservedWords": replaceReservedWords,
 		"makePublic":           makePublic,
+		"makeValidName":        makeValidName,
 		"findType":             g.findType,
 		"findSoapAction":       g.findSoapAction,
 		"findServiceAddress":   g.findServiceAddress,
@@ -295,6 +297,7 @@ func (g *GoWsdl) genHeader() ([]byte, error) {
 		"stripns":              stripns,
 		"replaceReservedWords": replaceReservedWords,
 		"makePublic":           makePublic,
+		"makeValidName":        makeValidName,
 		"findType":             g.findType,
 	}
 
@@ -386,7 +389,7 @@ func toGoType(xsdType string) string {
 
 	// Otherwise we have a custom type
 	// Make these go-like
-	type_ = strings.Replace(type_, "-", "_", -1)
+	type_ = makeValidName(type_)
 
 	return "*" + type_
 }
@@ -480,4 +483,12 @@ func makePublic(field_ string) string {
 
 	field[0] = unicode.ToUpper(field[0])
 	return string(field)
+}
+
+// makeValidName removes forbidden characters when making a variable or type name
+func makeValidName(s string) string {
+	s = strings.Replace(s, "-", "_", -1)
+	s = strings.Replace(s, " ", "_", -1)
+
+	return s
 }
