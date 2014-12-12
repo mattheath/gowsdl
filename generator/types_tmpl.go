@@ -10,7 +10,7 @@ var typesTmpl = `
 	const (
 		{{with .Restriction}}
 			{{range .Enumeration}}
-				{{$type}}_{{$value := replaceReservedWords .Value}}{{$value | makePublic}} {{$type}} = "{{$value}}" {{end}}
+				{{$type}}_{{$value := replaceReservedWords .Value}}{{$value | makeValidName | makePublic}} {{$type}} = "{{$value}}" {{end}}
 		{{end}}
 	)
 {{end}}
