@@ -345,6 +345,10 @@ func replaceReservedWords(identifier string) string {
 	if value != "" {
 		return value
 	}
+
+	// Fix other invalid names by replacing disallowed symbols
+	identifier = makeValidName(identifier)
+
 	return identifier
 }
 
