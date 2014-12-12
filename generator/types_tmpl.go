@@ -36,6 +36,11 @@ var typesTmpl = `
 
 {{define "ComplexTypeGlobal"}}
 	{{$name := replaceReservedWords .Name}}
+	// {{$name}}
+	// ComplexTypeGlobal
+	{{ if ne .Annotation.Documentation ""}}/*
+	{{.Annotation.Documentation}}
+	*/{{end}}
 	type {{$name}} struct {
 		XMLName xml.Name ` + "`xml:\"{{targetNamespace}} {{$name}}\"`" + `
 		{{if ne .ComplexContent.Extension.Base ""}}
