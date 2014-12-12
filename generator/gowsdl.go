@@ -232,6 +232,24 @@ func (g *GoWsdl) genTypes() ([]byte, error) {
 
 	data := new(bytes.Buffer)
 	tmpl := template.Must(template.New("types").Funcs(funcMap).Parse(typesTmpl))
+
+	// Preprocess some of the structure so we generate valid code
+	for _, s := range g.wsdl.Types.Schemas {
+		for _, c := range s.ComplexTypes {
+			if len(c.Sequence.Elements) > 0 {
+				se := make([]XsdElement, 0, len(c.Sequence.Elements))
+				for _, e := range c.Sequence.Elements {
+					// Skip elements with either blank name or type
+					if strings.TrimSpace(e.Name) == "" || strings.TrimSpace(e.Type) == "" {
+						continue
+					}
+				}
+				c.Sequence.Elements = se
+			}
+		}
+	}
+
+	// Boom!
 	err := tmpl.Execute(data, g.wsdl.Types)
 	if err != nil {
 		return nil, err
