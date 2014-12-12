@@ -6,6 +6,8 @@ package generator
 var typesTmpl = `
 {{define "SimpleType"}}
 	{{$type := replaceReservedWords .Name}}
+	// {{$type}}
+	// SimpleType
 	type {{$type}} {{toGoType .Restriction.Base}}
 	const (
 		{{with .Restriction}}
