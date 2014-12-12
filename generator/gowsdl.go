@@ -360,11 +360,15 @@ func toGoType(xsdType string) string {
 		type_ = r[1]
 	}
 
+	// Replace with built in primatives if possible
 	value := xsd2GoTypes[type_]
-
 	if value != "" {
 		return value
 	}
+
+	// Otherwise we have a custom type
+	// Make these go-like
+	type_ = strings.Replace(type_, "-", "_", -1)
 
 	return "*" + type_
 }
